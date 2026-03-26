@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glorious Education Care - Dynamic Result</title>
+    <title>Glorious Education Care - Final Optimized</title>
     <style>
         :root { 
             --primary: #1b5e20; 
             --accent: #0078d4;
             --danger: #d32f2f;
-            --purple: #6a1b9a;
-            --table-border: #444;
+            --table-border: #000;
         }
         
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #bee2a4cb; margin: 0; padding: 10px; }
         
+        .container { 
+            max-width: 297mm; 
+            width: 100%;
+            min-height: 210mm;
+            margin: auto; background: #fff; 
+            border: 1px solid #ccc; overflow: hidden; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
         .admin-only { display: none; }
         .is-admin .admin-only { display: inline-block; }
-        
-        .container { 
-            width: 100%; max-width: 1250px; margin: auto; background: #fff; 
-            border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; 
-        }
         
         .excel-header { 
             background: linear-gradient(to right, #76b852 0%, #8dc26f 60%, #e1f291 100%) !important; 
@@ -37,7 +40,7 @@
         .main-title-box h1 { margin: 0; font-size: 26px; text-transform: uppercase; display: inline; }
         .main-title-box span { font-size: 18px; margin-left: 8px; }
 
-        .header-right-address { text-align: right; font-size: 12px; color: #000; font-weight: bold; line-height: 1.3; }
+        .header-right-address { text-align: right; font-size: 11px; color: #000; font-weight: bold; line-height: 1.3; }
 
         .info-bar { 
             background: #e8f5e9 !important; padding: 10px; border-bottom: 1px solid #c8e6c9; 
@@ -46,73 +49,66 @@
 
         #topHoldersBox {
             display: none; margin: 15px; padding: 15px; border: 2px solid var(--primary);
-            border-radius: 8px; background: #fff;
+            background: #fff; 
         }
-        .top-title { 
-            font-weight: bold; color: var(--primary); border-bottom: 2px solid var(--primary); 
-            margin-bottom: 15px; text-transform: uppercase; font-size: 16px; display: flex; align-items: center; gap: 8px;
-        }
-        .top-list-container { display: flex; justify-content: space-between; gap: 20px; }
-        .merit-column { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .rank-item { 
-            padding: 6px 0; border-bottom: 1px dashed #ccc; font-weight: bold; font-size: 14px; color: #000; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .controls-panel { background: #f5f5f5; padding: 15px; border-bottom: 1px solid #ddd; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .top-title { font-weight: bold; color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: 10px; font-size: 16px; }
+        .top-list-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .merit-column { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 250px; }
         
-        .show-hide-panel { background: #fff; border: 1px solid #ddd; padding: 5px 15px; border-radius: 5px; display: flex; align-items: center; gap: 15px; font-weight: bold; color: var(--primary); }
-        .show-hide-panel input { cursor: pointer; }
+        .rank-item { display: flex; align-items: center; padding: 4px 0; border-bottom: 1px dashed #589f93; font-weight: bold; font-size: 13px; }
+        .rank-badge { 
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 2px 10px; border-radius: 15px; font-weight: 900; font-size: 12px;
+            min-width: 60px; margin-right: 10px; -webkit-print-color-adjust: exact;
+        }
 
-        input, select { padding: 6px; border: 1px solid #999; border-radius: 4px; font-weight: bold; }
-        button { padding: 7px 12px; cursor: pointer; border-radius: 4px; border: none; font-weight: bold; color: white; transition: 0.2s; font-size: 13px; }
+        .controls-panel { background: #f5f5f5; padding: 15px; border-bottom: 1px solid #ddd; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .show-hide-box { background: #fff; border: 1px solid #ccc; padding: 5px 10px; display: flex; gap: 10px; font-size: 12px; font-weight: bold; color: var(--primary); }
+
+        input, select { padding: 6px; border: 1px solid #999; border-radius: 4px; font-weight: bold; outline: none; background: #fff; }
+        button { padding: 7px 12px; cursor: pointer; border-radius: 4px; border: none; font-weight: bold; color: white; font-size: 12px; }
         
         .btn-add { background: var(--accent); }
         .btn-print { background: var(--primary); }
         .btn-reset { background: var(--danger); }
-        .btn-sync { background: var(--purple); }
+        .btn-sync { background: #6a1b9a; }
         .btn-login { background: #333; }
 
-        .table-wrap { padding: 10px; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 950px; table-layout: fixed; }
-        th, td { border: 1px solid var(--table-border); padding: 8px 4px; text-align: center; overflow: hidden; word-break: break-word; }
-        th { background: #f0f0f0 !important; color: #1b5e20; }
+        .table-wrap { padding: 10px; width: 100%; box-sizing: border-box; overflow-x: auto; max-height: 600px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+        th, td { border: 1px solid var(--table-border); padding: 6px 3px; text-align: center; overflow: hidden; }
         
-        .col-sl { width: 40px; }
-        .col-stu { width: 180px; }
-        .fm-input { width: 40px; border: 1px solid #fbc02d; text-align: center; font-weight: bold; }
+        th:nth-child(2), td:nth-child(2) {
+            position: sticky; left: 0; background: #fff; z-index: 2; 
+            width: 180px; min-width: 180px; box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            white-space: normal; word-wrap: break-word; text-align: left; padding: 4px 8px;
+        }
+        th:nth-child(2) { background: #f0f0f0 !important; z-index: 3; }
+        th { background: #f0f0f0 !important; color: #1b5e20; vertical-align: middle; }
         
-        input.mark-input, input.stu-name-input { 
-            width: 100%; border: none; background: transparent; font-weight: bold; outline: none; 
-            pointer-events: none;
-        }
-        .is-admin input.mark-input, .is-admin input.stu-name-input { 
-            pointer-events: auto; background: #fffbe6;
-        }
+        .col-sl { width: 35px; }
+        .col-mark { width: 60px; }
+        .fm-input { width: 38px; border: 1px solid #000; text-align: center; font-weight: bold; padding: 1px; font-size: 10px; margin-top: 3px; border-radius: 3px; }
+        input.mark-input { width: 100%; border: none !important; background: transparent !important; font-weight: bold; text-align: center; }
+        
+        input.stu-name-input { width: 100%; border: none; background: transparent; font-weight: bold; text-align: left; outline: none; pointer-events: none; }
+        .is-admin input.stu-name-input { pointer-events: auto; background: #fffbe6; }
 
-        .status-badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; }
+        .status-badge { padding: 2px 4px; border-radius: 4px; font-size: 10px; font-weight: bold; }
         .pass { background: #c8e6c9; color: #1b5e20; }
         .fail { background: #ffcdd2; color: #b71c1c; }
-        
-        /* Updated Position Badge Style */
-        .pos-badge { 
-            color: #000; 
-            font-weight: 800; 
-            font-size: 14px; 
-            padding: 2px 5px;
-        }
-
-        .btn-del { color: red; cursor: pointer; font-weight: bold; margin-left: 5px; display: none; }
+        .pos-badge { color: #030303; font-weight: 800; font-size: 13px; }
+        .btn-del { color: red; cursor: pointer; font-weight: bold; margin-left: 3px; display: none; }
         .is-admin .btn-del { display: inline; }
 
-        .group-control { display: inline-block; }
-        .hide-element { display: none !important; }
-
         @media print {
-            @page { size: A4 landscape; margin: 8mm; }
-            .controls-panel, .btn-del, .admin-only, .btn-login, .show-hide-panel { display: none !important; }
-            #topHoldersBox { display: block !important; border: 1px solid #000; }
-            th, td { border: 1px solid #000 !important; }
+            @page { size: A4 landscape; margin: 5mm; }
+            body { background: white; padding: 0; }
+            .container { width: 100% !important; max-width: 100% !important; border: none !important; box-shadow: none !important; transform: scale(0.98); transform-origin: top center; }
+            .controls-panel, .btn-del, .admin-only, .btn-login, .show-hide-box { display: none !important; }
+            th:nth-child(2), td:nth-child(2) { position: static !important; box-shadow: none !important; width: 180px !important; }
+            .table-wrap { overflow: visible !important; max-height: none !important; padding: 0 !important; }
+            table { width: 100% !important; table-layout: auto !important; font-size: 10px !important; }
         }
     </style>
 </head>
@@ -123,27 +119,20 @@
         <p class="bismillah">বিসমিল্লাহির রাহমানির রাহিম</p>
         <div class="header-content">
             <div class="header-left">
-                <img src="logo.jpeg" alt="Logo" class="header-logo">
+                <img src="https://via.placeholder.com/80" alt="Logo" class="header-logo">
                 <div class="header-mid">
                     <p style="margin:0; font-weight:bold; color:#1b5e20">সৃজনশীল প্রতিভার অন্বেষণে..........</p>
-                    <div class="main-title-box">
-                        <h1>GLORIOUS</h1>
-                        <span>Education Care</span>
-                    </div>
+                    <div class="main-title-box"><h1>GLORIOUS</h1><span>Education Care</span></div>
                 </div>
             </div>
-            <div class="header-right-address">
-                ফরিদুল হক চৌধুরী মার্কেট (২য় তলা),<br>
-                পেকুয়া চৌমুহনীর পশ্চিম পার্শ্বে, পেকুয়া।<br>
-                📞 ০১৮৬৮-৬৫৩৭২২
-            </div>
+            <div class="header-right-address">ফরিদুল হক চৌধুরী মার্কেট (২য় তলা),<br>পেকুয়া চৌমুহনীর পশ্চিম পার্শ্বে, পেকুয়া।<br>📞 ০১৮৬৮-৬৫৩৭২২</div>
         </div>
     </div>
     
     <div class="info-bar">
         <span>Exam: <span id="vExam">-</span></span>
         <span>Class: <span id="vClass">-</span></span>
-        <span id="groupDisplayArea" class="group-control">Group: <span id="vGroup">-</span></span>
+        <span id="groupDisplayArea">Group: <span id="vGroup">-</span></span>
         <button class="btn-login" id="loginBtn" onclick="toggleAdmin()">Admin Login</button>
     </div>
 
@@ -154,39 +143,38 @@
 
     <div class="controls-panel">
         <select id="cSel" onchange="updateInfo()">
+            <option>Class Five</option>
             <option>Class Six</option><option>Class Seven</option><option>Class Eight</option>
             <option selected>Class Nine</option><option>Class Ten</option><option>SSC Special Batch</option>
         </select>
         
-        <select id="gSel" class="group-control" onchange="updateInfo()">
-            <option value="General">General</option>
+        <select id="gSel" onchange="updateInfo()">
             <option value="Science">Science</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Arts">Arts</option>
+            <option value="Commerce">Commerce</option><option value="Arts">Arts</option>
         </select>
 
-        <select id="eSel" onchange="updateInfo()">
-            <option>Monthly Model Test</option><option>Half Yearly Exam</option><option>Final Exam</option>
-        </select>
+        <select id="eSel" onchange="updateInfo()"></select>
+        <button class="btn-remove-exam admin-only" onclick="removeExam()" style="background:#ff5722;">Remove</button>
 
-        <div class="show-hide-panel">
-            <span>Show:</span>
-            <label><input type="checkbox" id="showTotal" checked onchange="toggleCols()"> Total</label>
-            <label><input type="checkbox" id="showPct" checked onchange="toggleCols()"> %</label>
-            <label><input type="checkbox" id="showRes" checked onchange="toggleCols()"> Res</label>
-            <label><input type="checkbox" id="showPos" checked onchange="toggleCols()"> Pos</label>
+        <div class="show-hide-box">
+            <label><input type="checkbox" id="chkTotal" checked onchange="toggleCols()"> Total</label>
+            <label><input type="checkbox" id="chkPct" checked onchange="toggleCols()"> %</label>
+            <label><input type="checkbox" id="chkRes" checked onchange="toggleCols()"> Res</label>
+            <label><input type="checkbox" id="chkPos" checked onchange="toggleCols()"> Pos</label>
         </div>
-        
+
         <div class="admin-only">
-            <input type="text" id="subInp" placeholder="Sub" style="width:70px">
-            <button class="btn-add" onclick="addSub()">Add Subject</button>
-            <input type="text" id="nameInp" placeholder="Name" style="width:90px" maxlength="25">
-            <button class="btn-add" onclick="addStu()">Add Student</button>
+            <input type="text" id="examInp" placeholder="New Exam" style="width:90px">
+            <button class="btn-add" onclick="addExam()">+ Exam</button>
+            <input type="text" id="subInp" placeholder="Subject" style="width:50px">
+            <button class="btn-add" onclick="addSub()">+Subject</button>
+            <input type="text" id="nameInp" maxlength="25" placeholder="Student Name" style="width:110px">
+            <button class="btn-add" onclick="addStu()">+Student</button>
             <button class="btn-sync" onclick="syncToAll()">🔄 Sync</button>
-            <button class="btn-reset" onclick="resetCurrent()">🗑️ Reset</button>
         </div>
 
-        <button class="btn-print" onclick="window.print()">🖨️ Print</button>
+        <button class="btn-print" onclick="window.print()">🖨️ Print Result</button>
+        <button class="btn-reset admin-only" onclick="resetCurrentMarks()">🗑️ Reset</button>
     </div>
 
     <div class="table-wrap">
@@ -199,16 +187,16 @@
 
 <script>
     let subjects = []; let students = []; let marks = {}; let fms = {}; 
+    let examsList = ["Half Yearly Exam", "Final Exam"];
     let isAdmin = false;
 
     function toggleAdmin() {
         if(!isAdmin) {
-            let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-            if(pass === "#$t") {
+            if(prompt("Admin Password:") === "#$t") {
                 isAdmin = true;
                 document.getElementById('mainBody').classList.add('is-admin');
                 document.getElementById('loginBtn').innerText = "Logout Admin";
-            } else { alert("ভুল পাসওয়ার্ড!"); }
+            }
         } else {
             isAdmin = false;
             document.getElementById('mainBody').classList.remove('is-admin');
@@ -220,74 +208,60 @@
     function getStorageKey() {
         const c = document.getElementById('cSel').value;
         const e = document.getElementById('eSel').value;
-        const g = (['Class Six', 'Class Seven', 'Class Eight'].includes(c)) ? 'General' : document.getElementById('gSel').value;
-        return `glorious_final_${c}_${g}_${e}`.replace(/\s+/g, '_');
+        const noGrp = ['Class Six', 'Class Seven', 'Class Eight', 'Class Five'];
+        const g = noGrp.includes(c) ? 'General' : document.getElementById('gSel').value;
+        return `glorious_v6_${c}_${g}_${e}`.replace(/\s+/g, '_');
+    }
+
+    function renderExams() {
+        const savedExams = JSON.parse(localStorage.getItem('glorious_exams_list_v6')) || examsList;
+        examsList = savedExams;
+        document.getElementById('eSel').innerHTML = examsList.map(e => `<option>${e}</option>`).join('');
+    }
+
+    function addExam() {
+        let v = document.getElementById('examInp').value.trim();
+        if(v && !examsList.includes(v)) {
+            examsList.push(v);
+            localStorage.setItem('glorious_exams_list_v6', JSON.stringify(examsList));
+            renderExams(); document.getElementById('eSel').value = v; updateInfo();
+            document.getElementById('examInp').value = '';
+        }
     }
 
     function loadData() {
-        const key = getStorageKey();
-        const saved = JSON.parse(localStorage.getItem(key));
-        if (saved) {
-            subjects = saved.subjects || [];
-            students = saved.students || [];
-            marks = saved.marks || {};
-            fms = saved.fms || {};
-        } else {
-            subjects = []; students = []; marks = {}; fms = {};
-        }
+        const saved = JSON.parse(localStorage.getItem(getStorageKey()));
+        if (saved) { subjects = saved.subjects || []; students = saved.students || []; marks = saved.marks || {}; fms = saved.fms || {}; } 
+        else { subjects = []; students = []; marks = {}; fms = {}; }
         render();
-    }
-
-    function saveData() {
-        if(!isAdmin) return;
-        localStorage.setItem(getStorageKey(), JSON.stringify({ subjects, students, marks, fms }));
     }
 
     function render() {
         const head = document.getElementById('hRow');
         const body = document.getElementById('tBody');
-
-        let hHtml = `<th class="col-sl">SL</th><th class="col-stu">Student Name</th>`;
+        let hHtml = `<th class="col-sl">SL</th><th>Student Name</th>`;
         subjects.forEach((s, i) => {
-            hHtml += `<th>${s}<br>
+            hHtml += `<th class="col-mark">
+                <span contenteditable="${isAdmin}" style="display:block" onblur="subjects[${i}]=this.innerText;saveData()">${s}</span>
                 <input type="number" class="fm-input" value="${fms[i]||100}" oninput="fms[${i}]=this.value;calc()" ${isAdmin?'':'disabled'}>
                 <span class="btn-del" onclick="delSub(${i})">×</span></th>`;
         });
-        hHtml += `<th class="cell-total" style="width:60px">Total</th>
-                  <th class="cell-pct" style="width:50px">%</th>
-                  <th class="cell-res" style="width:60px">Res</th>
-                  <th class="cell-pos" style="width:50px">Pos</th>`;
+        hHtml += `<th class="cell-total col-mark">Total</th><th class="cell-pct col-mark">%</th><th class="cell-res col-mark">Res</th><th class="cell-pos col-mark">Pos</th>`;
         head.innerHTML = hHtml;
 
         let bHtml = '';
         students.forEach((name, sIdx) => {
-            bHtml += `<tr><td>${sIdx+1}</td><td style="text-align:left">
-                <input type="text" class="stu-name-input" value="${name}" maxlength="25" oninput="students[${sIdx}]=this.value;saveData()">
+            bHtml += `<tr><td>${sIdx+1}</td><td>
+                <input type="text" class="stu-name-input" value="${name}" oninput="students[${sIdx}]=this.value;saveData()">
                 <span class="btn-del" onclick="delStu(${sIdx})">×</span></td>`;
             subjects.forEach((_, subIdx) => {
                 let mKey = `${sIdx}_${subIdx}`;
                 bHtml += `<td><input type="number" class="mark-input" value="${marks[mKey]||0}" oninput="marks['${mKey}']=this.value;calc()"></td>`;
             });
-            bHtml += `<td class="r-total cell-total">0</td>
-                      <td class="r-pct cell-pct">0%</td>
-                      <td class="r-stat cell-res">-</td>
-                      <td class="r-pos cell-pos">-</td></tr>`;
+            bHtml += `<td class="r-total cell-total">0</td><td class="r-pct cell-pct">0%</td><td class="r-res cell-res">-</td><td class="r-pos cell-pos">-</td></tr>`;
         });
         body.innerHTML = bHtml;
-        calc();
-        toggleCols();
-    }
-
-    function toggleCols() {
-        const showTotal = document.getElementById('showTotal').checked;
-        const showPct = document.getElementById('showPct').checked;
-        const showRes = document.getElementById('showRes').checked;
-        const showPos = document.getElementById('showPos').checked;
-
-        document.querySelectorAll('.cell-total').forEach(el => el.style.display = showTotal ? '' : 'none');
-        document.querySelectorAll('.cell-pct').forEach(el => el.style.display = showPct ? '' : 'none');
-        document.querySelectorAll('.cell-res').forEach(el => el.style.display = showRes ? '' : 'none');
-        document.querySelectorAll('.cell-pos').forEach(el => el.style.display = showPos ? '' : 'none');
+        calc(); toggleCols();
     }
 
     function calc() {
@@ -303,7 +277,7 @@
             });
             row.querySelector('.r-total').innerText = total;
             row.querySelector('.r-pct').innerText = (fullMark > 0 ? Math.round((total/fullMark)*100) : 0) + '%';
-            row.querySelector('.r-stat').innerHTML = isFail ? '<span class="status-badge fail">Fail</span>' : '<span class="status-badge pass">Pass</span>';
+            row.querySelector('.r-res').innerHTML = isFail ? '<span class="status-badge fail">Fail</span>' : '<span class="status-badge pass">Pass</span>';
             dataList.push({ sIdx, total, name: students[sIdx] });
         });
         let ranked = [...dataList].sort((a,b) => b.total - a.total);
@@ -311,61 +285,74 @@
             let rank = ranked.findIndex(x => x.total === s.total) + 1;
             rows[s.sIdx].querySelector('.r-pos').innerHTML = `<span class="pos-badge">${rank}</span>`;
         });
-        updateTopHolders(ranked);
-        saveData();
+        updateTopHolders(ranked); saveData();
     }
 
     function updateTopHolders(ranked) {
         const box = document.getElementById('topHoldersBox');
-        if(!ranked.length || !ranked[0].name) { box.style.display = 'none'; return; }
+        let filtered = ranked.filter(r => r.name && r.total > 0).slice(0, 10);
+        if(!filtered.length) { box.style.display = 'none'; return; }
         box.style.display = 'block';
-        let cols = [[], [], []]; 
-        for(let i=0; i<10; i++) {
-            if(ranked[i] && ranked[i].name) {
-                let html = `<div class="rank-item">${i+1}th. ${ranked[i].name} — Total: ${ranked[i].total}</div>`;
-                if (i < 4) cols[0].push(html); else if (i < 7) cols[1].push(html); else cols[2].push(html);
-            }
-        }
-        document.getElementById('topList').innerHTML = cols.map(c => `<div class="merit-column">${c.join('')}</div>`).join('');
-    }
 
-    function syncToAll() {
-        if(!isAdmin) return;
-        if(confirm("Sync subjects and students to ALL classes?")) {
-            const classes = ["Class Six", "Class Seven", "Class Eight", "Class Nine", "Class Ten", "SSC"];
-            const groups = ["General", "Science", "Commerce", "Arts"];
-            const exams = ["Monthly Test", "Half Yearly", "Final Exam"];
-            classes.forEach(c => groups.forEach(g => exams.forEach(e => {
-                const key = `glorious_final_${c}_${g}_${e}`.replace(/\s+/g, '_');
-                let d = JSON.parse(localStorage.getItem(key)) || {};
-                d.subjects = [...subjects]; d.students = [...students]; d.fms = {...fms};
-                localStorage.setItem(key, JSON.stringify(d));
-            })));
-            alert("Sync Done!");
-        }
+        let htmlItems = filtered.map((r, i) => {
+            let badgeStyle = "background: #f1f8e9; color: #1b5e20;";
+            let medal = (i + 1) + "th";
+            if (i === 0) { badgeStyle = "background: linear-gradient(to bottom, #FFD700, #FFB900); color: #000;"; medal = "🥇 1st"; }
+            else if (i === 1) { badgeStyle = "background: linear-gradient(to bottom, #E0E0E0, #BDBDBD); color: #000;"; medal = "🥈 2nd"; }
+            else if (i === 2) { badgeStyle = "background: linear-gradient(to bottom, #CD7F32, #A0522D); color: #fff;"; medal = "🥉 3rd"; }
+            
+            return `<div class="rank-item">
+                <span class="rank-badge" style="${badgeStyle}">${medal}</span>
+                <span>${r.name} (${r.total})</span>
+            </div>`;
+        });
+
+        document.getElementById('topList').innerHTML = `
+            <div class="merit-column">${htmlItems.slice(0,4).join('')}</div>
+            <div class="merit-column">${htmlItems.slice(4,7).join('')}</div>
+            <div class="merit-column">${htmlItems.slice(7,10).join('')}</div>`;
     }
 
     function updateInfo() {
         const cls = document.getElementById('cSel').value;
-        const noGroupClasses = ['Class Six', 'Class Seven', 'Class Eight'];
-        if (noGroupClasses.includes(cls)) {
-            document.querySelectorAll('.group-control').forEach(el => el.classList.add('hide-element'));
-            document.getElementById('vGroup').innerText = "General";
-        } else {
-            document.querySelectorAll('.group-control').forEach(el => el.classList.remove('hide-element'));
-            document.getElementById('vGroup').innerText = document.getElementById('gSel').value;
-        }
+        const noGrp = ['Class Six', 'Class Seven', 'Class Eight', 'Class Five'];
+        document.getElementById('gSel').style.display = noGrp.includes(cls) ? 'none' : 'inline-block';
         document.getElementById('vClass').innerText = cls;
+        document.getElementById('vGroup').innerText = noGrp.includes(cls) ? "General" : document.getElementById('gSel').value;
         document.getElementById('vExam').innerText = document.getElementById('eSel').value;
         loadData();
     }
-    
-    function addSub() { if(!isAdmin) return; let v = document.getElementById('subInp').value.trim(); if(v) { subjects.push(v); render(); } }
-    function addStu() { if(!isAdmin) return; let v = document.getElementById('nameInp').value.trim(); if(v) { students.push(v); render(); } }
+
+    function toggleCols() {
+        const t = document.getElementById('chkTotal').checked;
+        const p = document.getElementById('chkPct').checked;
+        const r = document.getElementById('chkRes').checked;
+        const s = document.getElementById('chkPos').checked;
+        document.querySelectorAll('.cell-total').forEach(el => el.style.display = t ? '' : 'none');
+        document.querySelectorAll('.cell-pct').forEach(el => el.style.display = p ? '' : 'none');
+        document.querySelectorAll('.cell-res').forEach(el => el.style.display = r ? '' : 'none');
+        document.querySelectorAll('.cell-pos').forEach(el => el.style.display = s ? '' : 'none');
+    }
+
+    function saveData() { localStorage.setItem(getStorageKey(), JSON.stringify({ subjects, students, marks, fms })); }
+    function addSub() { if(isAdmin) { let v = document.getElementById('subInp').value; if(v){ subjects.push(v); document.getElementById('subInp').value=''; render(); } } }
+    function addStu() { if(isAdmin) { let v = document.getElementById('nameInp').value.trim(); if(v){ students.push(v); document.getElementById('nameInp').value=''; render(); } } }
     function delSub(i) { if(isAdmin && confirm("Delete?")) { subjects.splice(i,1); render(); } }
     function delStu(i) { if(isAdmin && confirm("Delete?")) { students.splice(i,1); render(); } }
-    function resetCurrent() { if(isAdmin && confirm("Reset?")) { localStorage.removeItem(getStorageKey()); loadData(); } }
-    window.onload = updateInfo;
+    function resetCurrentMarks() { if(isAdmin && confirm("Reset?")) { localStorage.removeItem(getStorageKey()); loadData(); } }
+    function syncToAll() {
+        if(!isAdmin) return;
+        const currentExam = document.getElementById('eSel').value;
+        examsList.forEach(e => {
+            const key = getStorageKey().replace(currentExam.replace(/\s+/g, '_'), e.replace(/\s+/g, '_'));
+            let d = JSON.parse(localStorage.getItem(key)) || {};
+            d.subjects = [...subjects]; d.students = [...students]; d.fms = {...fms};
+            localStorage.setItem(key, JSON.stringify(d));
+        });
+        alert("Synced to all exams!");
+    }
+
+    window.onload = () => { renderExams(); updateInfo(); };
 </script>
 </body>
 </html>
