@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glorious Education Care - Live Online Portal</title>
+    <title>Glorious Education Care - Final Online Portal</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -11,44 +11,58 @@
     <style>
         :root { --primary: #1b5e20; --accent: #0078d4; --danger: #d32f2f; --table-border: #000; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #bee2a4cb; margin: 0; padding: 10px; }
-        .container { max-width: 297mm; width: 100%; margin: auto; background: #fff; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1); overflow: hidden; }
-        
+        .container { max-width: 297mm; width: 100%; min-height: 210mm; margin: auto; background: #fff; border: 1px solid #ccc; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .admin-only { display: none; }
         .is-admin .admin-only { display: inline-block; }
-        
         .excel-header { background: linear-gradient(to right, #76b852 0%, #8dc26f 60%, #e1f291 100%) !important; padding: 15px 20px; border-bottom: 3px solid #1b5e20; -webkit-print-color-adjust: exact; }
-        .bismillah { text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+        .bismillah { text-align: center; font-size: 13px; font-weight: bold; margin: 0 0 5px 0; }
         .header-content { display: flex; align-items: center; justify-content: space-between; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
         .header-logo { height: 80px; width: 80px; background: white; border-radius: 50%; border: 2px solid #1b5e20; object-fit: contain; }
-        
         .main-title-box { background: #002233; color: white !important; padding: 4px 20px; border-radius: 0 40px 40px 40px; }
         .main-title-box h1 { margin: 0; font-size: 26px; text-transform: uppercase; display: inline; }
-        .header-right-address { text-align: right; font-size: 11px; font-weight: bold; }
-
-        .info-bar { background: #e8f5e9 !important; padding: 10px; border-bottom: 1px solid #c8e6c9; display: flex; justify-content: center; gap: 30px; font-weight: bold; align-items: center; }
-        
+        .main-title-box span { font-size: 18px; margin-left: 8px; }
+        .header-right-address { text-align: right; font-size: 11px; color: #000; font-weight: bold; line-height: 1.3; }
+        .info-bar { background: #e8f5e9 !important; padding: 10px; border-bottom: 1px solid #c8e6c9; display: flex; justify-content: center; gap: 30px; font-weight: bold; font-size: 15px; color: #1b5e20; }
         #topHoldersBox { display: none; margin: 15px; padding: 15px; border: 2px solid var(--primary); background: #fff; }
-        .top-title { font-weight: bold; color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: 10px; }
+        .top-title { font-weight: bold; color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: 10px; font-size: 16px; }
         .top-list-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-        .rank-item { display: flex; align-items: center; padding: 3px 0; border-bottom: 1px dashed #ccc; font-size: 13px; font-weight: bold; }
-
-        .controls-panel { background: #f5f5f5; padding: 15px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; border-bottom: 1px solid #ddd; }
-        input, select { padding: 6px; border: 1px solid #999; border-radius: 4px; font-weight: bold; }
+        .merit-column { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 250px; }
+        .rank-item { display: flex; align-items: center; padding: 4px 0; border-bottom: 1px dashed #589f93; font-weight: bold; font-size: 13px; }
+        .rank-badge { display: inline-flex; align-items: center; justify-content: center; padding: 2px 10px; border-radius: 15px; font-weight: 900; font-size: 12px; min-width: 60px; margin-right: 10px; -webkit-print-color-adjust: exact; }
+        .controls-panel { background: #f5f5f5; padding: 15px; border-bottom: 1px solid #ddd; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .show-hide-box { background: #fff; border: 1px solid #ccc; padding: 5px 10px; display: flex; gap: 10px; font-size: 12px; font-weight: bold; color: var(--primary); }
+        input, select { padding: 6px; border: 1px solid #999; border-radius: 4px; font-weight: bold; outline: none; background: #fff; }
         button { padding: 7px 12px; cursor: pointer; border-radius: 4px; border: none; font-weight: bold; color: white; font-size: 12px; }
-        
-        .table-wrap { padding: 10px; overflow-x: auto; max-height: 600px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th, td { border: 1px solid var(--table-border); padding: 6px 3px; text-align: center; }
-        th { background: #f0f0f0; color: #1b5e20; }
-        
+        .btn-add { background: var(--accent); }
+        .btn-print { background: var(--primary); }
+        .btn-sync { background: #6a1b9a; }
+        .btn-login { background: #333; }
+        .btn-remove { background: #ff5722; margin-left: -5px; }
+        .table-wrap { padding: 10px; width: 100%; box-sizing: border-box; overflow-x: auto; max-height: 600px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+        th, td { border: 1px solid var(--table-border); padding: 6px 3px; text-align: center; overflow: hidden; }
+        th:nth-child(2), td:nth-child(2) { position: sticky; left: 0; background: #fff; z-index: 2; width: 180px; min-width: 180px; box-shadow: 2px 0 5px rgba(0,0,0,0.1); white-space: normal; word-wrap: break-word; text-align: left; padding: 4px 8px; }
+        th:nth-child(2) { background: #f0f0f0 !important; z-index: 3; }
+        th { background: #f0f0f0 !important; color: #1b5e20; vertical-align: middle; }
+        .fm-input { width: 38px; border: 1px solid #000; text-align: center; font-weight: bold; padding: 1px; font-size: 10px; margin-top: 3px; border-radius: 3px; }
+        input.mark-input { width: 100%; border: none !important; background: transparent !important; font-weight: bold; text-align: center; }
+        input.stu-name-input { width: 100%; border: none; background: transparent; font-weight: bold; text-align: left; outline: none; pointer-events: none; }
+        .is-admin input.stu-name-input { pointer-events: auto; background: #fffbe6; }
         .status-badge { padding: 2px 4px; border-radius: 4px; font-size: 10px; font-weight: bold; }
         .pass { background: #c8e6c9; color: #1b5e20; }
         .fail { background: #ffcdd2; color: #b71c1c; }
-        
-        .mark-input { width: 100%; border: none; text-align: center; font-weight: bold; background: transparent; }
-        .is-admin .mark-input { background: #fffbe6; border: 1px solid #eee; }
-        
-        @media print { .controls-panel, .admin-only, #loginBtn { display: none !important; } }
+        .btn-del { color: red; cursor: pointer; font-weight: bold; margin-left: 3px; display: none; }
+        .is-admin .btn-del { display: inline; }
+
+        @media print {
+            @page { size: A4 landscape; margin: 5mm; }
+            body { background: white; padding: 0; }
+            .container { width: 100% !important; max-width: 100% !important; border: none !important; box-shadow: none !important; transform: scale(0.98); transform-origin: top center; }
+            .controls-panel, .btn-del, .admin-only, .btn-login, .show-hide-box { display: none !important; }
+            th:nth-child(2), td:nth-child(2) { position: static !important; box-shadow: none !important; width: 180px !important; }
+            .table-wrap { overflow: visible !important; max-height: none !important; padding: 0 !important; }
+        }
     </style>
 </head>
 <body id="mainBody">
@@ -59,17 +73,21 @@
         <div class="header-content">
             <div class="header-left">
                 <img src="logo.jpeg" alt="Logo" class="header-logo">
-                <div class="main-title-box"><h1>GLORIOUS</h1><span>Education Care</span></div>
+                <div class="header-mid">
+                    <p style="margin:0; font-weight:bold; color:#1b5e20">সৃজনশীল প্রতিভার অন্বেষণে..........</p>
+                    <div class="main-title-box"><h1>GLORIOUS</h1><span>Education Care</span></div>
+                </div>
             </div>
-            <div class="header-right-address">ফরিদুল হক চৌধুরী মার্কেট, পেকুয়া।<br>📞 ০১৮৬৮-৬৫৩৭২২</div>
+            <div class="header-right-address">ফরিদুল হক চৌধুরী মার্কেট (২য় তলা),<br>পেকুয়া চৌমুহনীর পশ্চিম পার্শ্বে, পেকুয়া।<br>📞 ০১৮৬৮-৬৫৩৭২২</div>
         </div>
     </div>
     
     <div class="info-bar">
         <span>Exam: <span id="vExam">-</span></span>
         <span>Class: <span id="vClass">-</span></span>
-        <button id="loginBtn" onclick="toggleAdmin()" style="background:#333">Admin Login</button>
-        <span id="syncStat" style="font-size: 10px; color: green;">● Live Online</span>
+        <span id="groupDisplayArea">Group: <span id="vGroup">-</span></span>
+        <button class="btn-login" id="loginBtn" onclick="toggleAdmin()">Admin Login</button>
+        <span id="syncStat" style="font-size: 10px; color: green; margin-left: 10px;">● Online</span>
     </div>
 
     <div id="topHoldersBox">
@@ -78,22 +96,39 @@
     </div>
 
     <div class="controls-panel">
-        <select id="cSel" onchange="switchClass()"><option>Class Five</option><option>Class Six</option><option>Class Seven</option><option>Class Eight</option><option selected>Class Nine</option><option>Class Ten</option></select>
-        <select id="gSel" onchange="switchClass()"><option>Science</option><option>Commerce</option><option>Arts</option></select>
-        <select id="eSel" onchange="switchClass()"><option>Half Yearly Exam</option><option>Final Exam</option></select>
+        <select id="cSel" onchange="updateInfo()">
+            <option>Class Five</option><option>Class Six</option><option>Class Seven</option><option>Class Eight</option>
+            <option selected>Class Nine</option><option>Class Ten</option><option>SSC Special Batch</option>
+        </select>
+        <select id="gSel" onchange="updateInfo()"><option value="Science">Science</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select>
+        
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <select id="eSel" onchange="updateInfo()"></select>
+            <button class="btn-remove admin-only" onclick="removeExam()">Remove</button>
+        </div>
+
+        <div class="show-hide-box">
+            <label><input type="checkbox" id="chkTotal" checked onchange="toggleCols()"> Total</label>
+            <label><input type="checkbox" id="chkPct" checked onchange="toggleCols()"> %</label>
+            <label><input type="checkbox" id="chkRes" checked onchange="toggleCols()"> Res</label>
+            <label><input type="checkbox" id="chkPos" checked onchange="toggleCols()"> Pos</label>
+        </div>
 
         <div class="admin-only">
-            <input type="text" id="subInp" placeholder="Sub" style="width:50px">
-            <button onclick="addSub()" style="background:var(--accent)">+Sub</button>
-            <input type="text" id="nameInp" placeholder="Student" style="width:100px">
-            <button onclick="addStu()" style="background:var(--accent)">+Stu</button>
-            <button onclick="saveToCloud()" id="saveBtn" style="background:#6a1b9a">💾 UPDATE ONLINE</button>
+            <input type="text" id="examInp" placeholder="New Exam" style="width:90px">
+            <button class="btn-add" onclick="addExam()">+ Exam</button>
+            <input type="text" id="subInp" placeholder="Subject" style="width:50px">
+            <button class="btn-add" onclick="addSub()">+Sub</button>
+            <input type="text" id="nameInp" maxlength="25" placeholder="Student Name" style="width:110px">
+            <button class="btn-add" onclick="addStu()">+Student</button>
+            <button class="btn-sync" onclick="syncToAll()">🔄 Sync Students</button>
+            <button class="btn-sync" id="saveBtn" style="background:#6a1b9a" onclick="saveToCloud()">💾 Save Online</button>
         </div>
-        <button style="background:var(--primary)" onclick="window.print()">🖨️ PRINT</button>
+        <button class="btn-print" onclick="window.print()">🖨️ Print Result</button>
     </div>
 
     <div class="table-wrap">
-        <table>
+        <table id="resTable">
             <thead><tr id="hRow"></tr></thead>
             <tbody id="tBody"></tbody>
         </table>
@@ -101,11 +136,10 @@
 </div>
 
 <script>
-    // আপনার ফায়ারবেস কনফিগারেশন (নিচের তথ্যগুলো আপনার Firebase ড্যাশবোর্ড থেকে মিলিয়ে নিন)
     const firebaseConfig = {
         apiKey: "AIzaSyCcwdSFN9L8kD7QayZgaoqUvTVjbpzQ2mI",
         authDomain: "result-sheet-099.firebaseapp.com",
-        databaseURL: "https://result-sheet-099-default-rtdb.firebaseio.com/", // <--- এটি আপনার Realtime Database লিঙ্ক দিয়ে বদলে দিন
+        databaseURL: "https://result-sheet-099-default-rtdb.firebaseio.com/",
         projectId: "result-sheet-099",
         storageBucket: "result-sheet-099.firebasestorage.app",
         messagingSenderId: "1052113315277",
@@ -115,30 +149,71 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let subjects = [], students = [], marks = {}, fms = {};
+    let subjects = [], students = [], marks = {}, fms = {}; 
+    let examsList = ["Half Yearly Exam", "Final Exam"];
     let isAdmin = false;
 
-    // পাসওয়ার্ড দিয়ে এডমিন লগইন (পাসওয়ার্ড: #$t)
     function toggleAdmin() {
         if(!isAdmin) {
-            if(prompt("Password:") === "#$t") {
+            if(prompt("Admin Password:") === "#$t") {
                 isAdmin = true;
                 document.getElementById('mainBody').classList.add('is-admin');
-                document.getElementById('loginBtn').innerText = "Logout";
+                document.getElementById('loginBtn').innerText = "Logout Admin";
             }
-        } else { isAdmin = false; document.getElementById('mainBody').classList.remove('is-admin'); document.getElementById('loginBtn').innerText = "Admin Login"; }
+        } else {
+            isAdmin = false;
+            document.getElementById('mainBody').classList.remove('is-admin');
+            document.getElementById('loginBtn').innerText = "Admin Login";
+        }
         render();
     }
 
-    // ডাটাবেস পাথ তৈরি
-    function getPath() {
-        const key = `${document.getElementById('cSel').value}_${document.getElementById('gSel').value}_${document.getElementById('eSel').value}`;
-        return `results/${key.replace(/\s+/g, '_')}`;
+    function getPath(examName = null) {
+        const c = document.getElementById('cSel').value;
+        const e = examName || document.getElementById('eSel').value;
+        const noGrp = ['Class Six', 'Class Seven', 'Class Eight', 'Class Five'];
+        const g = noGrp.includes(c) ? 'General' : document.getElementById('gSel').value;
+        return `results/${c}_${g}_${e}`.replace(/\s+/g, '_');
     }
 
-    // ক্লাস বা এক্সাম পরিবর্তনের সাথে সাথে ডাটা লোড
-    function switchClass() {
-        document.getElementById('vClass').innerText = document.getElementById('cSel').value;
+    function renderExams() {
+        db.ref('exams_list').on('value', (snap) => {
+            const list = snap.val();
+            if(list) {
+                examsList = list;
+                const current = document.getElementById('eSel').value;
+                document.getElementById('eSel').innerHTML = examsList.map(e => `<option>${e}</option>`).join('');
+                if(examsList.includes(current)) document.getElementById('eSel').value = current;
+            }
+        });
+    }
+
+    function addExam() {
+        let v = document.getElementById('examInp').value.trim();
+        if(v && !examsList.includes(v)) {
+            examsList.push(v);
+            db.ref('exams_list').set(examsList);
+            document.getElementById('examInp').value = '';
+        }
+    }
+
+    function removeExam() {
+        const currentExam = document.getElementById('eSel').value;
+        if(isAdmin && confirm(`Are you sure you want to remove "${currentExam}" from the list? (This won't delete the data inside it)`)) {
+            examsList = examsList.filter(e => e !== currentExam);
+            db.ref('exams_list').set(examsList).then(() => {
+                alert("Exam removed from list!");
+                updateInfo();
+            });
+        }
+    }
+
+    function updateInfo() {
+        const cls = document.getElementById('cSel').value;
+        const noGrp = ['Class Six', 'Class Seven', 'Class Eight', 'Class Five'];
+        document.getElementById('gSel').style.display = noGrp.includes(cls) ? 'none' : 'inline-block';
+        document.getElementById('vClass').innerText = cls;
+        document.getElementById('vGroup').innerText = noGrp.includes(cls) ? "General" : document.getElementById('gSel').value;
         document.getElementById('vExam').innerText = document.getElementById('eSel').value;
         
         db.ref(getPath()).on('value', (snap) => {
@@ -151,62 +226,116 @@
         });
     }
 
-    // অনলাইনে ডাটা সেভ করা
     function saveToCloud() {
         if(!isAdmin) return;
         document.getElementById('saveBtn').innerText = "Saving...";
         db.ref(getPath()).set({ subjects, students, marks, fms })
-          .then(() => { alert("Online Update Success!"); document.getElementById('saveBtn').innerText = "💾 UPDATE ONLINE"; });
+          .then(() => { alert("Online Saved!"); document.getElementById('saveBtn').innerText = "💾 Save Online"; });
+    }
+
+    function syncToAll() {
+        if(!isAdmin || !confirm("Sync current students/subjects to ALL exams of this class?")) return;
+        examsList.forEach(ex => {
+            const path = getPath(ex);
+            db.ref(path).once('value', (snap) => {
+                let data = snap.val() || {};
+                data.subjects = subjects;
+                data.students = students;
+                data.fms = fms;
+                db.ref(path).set(data);
+            });
+        });
+        alert("Sync Completed Successfully!");
     }
 
     function render() {
         const head = document.getElementById('hRow');
         const body = document.getElementById('tBody');
-        head.innerHTML = `<th>SL</th><th>Student Name</th>` + subjects.map((s, i) => `<th>${s}<br><input type="number" class="mark-input" value="${fms[i]||100}" oninput="fms[${i}]=this.value;calc()" ${isAdmin?'':'disabled'} style="width:40px; font-size:10px"></th>`).join('') + `<th>Total</th><th>Res</th><th>Pos</th>`;
-        
-        body.innerHTML = students.map((n, sIdx) => `<tr><td>${sIdx+1}</td><td style="text-align:left">${n}</td>` + subjects.map((_, subIdx) => `<td><input type="number" class="mark-input" value="${marks[sIdx+'_'+subIdx]||0}" oninput="marks['${sIdx+'_'+subIdx}']=this.value;calc()" ${isAdmin?'':'disabled'}></td>`).join('') + `<td class="r-total">0</td><td class="r-res">-</td><td class="r-pos">-</td></tr>`).join('');
-        calc();
+        let hHtml = `<th style="width:35px">SL</th><th style="width:180px">Student Name</th>`;
+        subjects.forEach((s, i) => {
+            hHtml += `<th style="width:60px">
+                <span contenteditable="${isAdmin}" style="display:block" onblur="subjects[${i}]=this.innerText">${s}</span>
+                <input type="number" class="fm-input" value="${fms[i]||100}" oninput="fms[${i}]=this.value;calc()" ${isAdmin?'':'disabled'}>
+                <span class="btn-del" onclick="delSub(${i})">×</span></th>`;
+        });
+        hHtml += `<th class="cell-total">Total</th><th class="cell-pct">%</th><th class="cell-res">Res</th><th class="cell-pos">Pos</th>`;
+        head.innerHTML = hHtml;
+
+        let bHtml = '';
+        students.forEach((name, sIdx) => {
+            bHtml += `<tr><td>${sIdx+1}</td><td>
+                <input type="text" class="stu-name-input" value="${name}" oninput="students[sIdx]=this.value">
+                <span class="btn-del" onclick="delStu(${sIdx})">×</span></td>`;
+            subjects.forEach((_, subIdx) => {
+                let mKey = `${sIdx}_${subIdx}`;
+                bHtml += `<td><input type="number" class="mark-input" value="${marks[mKey]||0}" oninput="marks['${mKey}']=this.value;calc()"></td>`;
+            });
+            bHtml += `<td class="r-total cell-total">0</td><td class="r-pct cell-pct">0%</td><td class="r-res cell-res">-</td><td class="r-pos cell-pos">-</td></tr>`;
+        });
+        body.innerHTML = bHtml;
+        calc(); toggleCols();
     }
 
     function calc() {
         const rows = document.querySelectorAll('#tBody tr');
         let dataList = [];
         rows.forEach((row, sIdx) => {
-            let total = 0, isFail = false;
+            let total = 0, fullMark = 0, isFail = false;
             subjects.forEach((_, subIdx) => {
-                let m = parseFloat(marks[sIdx+'_'+subIdx]) || 0;
+                let m = parseFloat(marks[`${sIdx}_${subIdx}`]) || 0;
                 let fm = parseFloat(fms[subIdx]) || 100;
-                total += m; if(m < fm*0.33) isFail = true;
+                total += m; fullMark += fm;
+                if(m < (fm * 0.33)) isFail = true;
             });
             row.querySelector('.r-total').innerText = total;
+            row.querySelector('.r-pct').innerText = (fullMark > 0 ? Math.round((total/fullMark)*100) : 0) + '%';
             row.querySelector('.r-res').innerHTML = isFail ? '<span class="status-badge fail">Fail</span>' : '<span class="status-badge pass">Pass</span>';
-            dataList.push({ sIdx, total, isFail, name: students[sIdx] });
+            dataList.push({ sIdx, total, name: students[sIdx], isFail: isFail });
         });
 
-        // পজিশন ক্যালকুলেশন (সবার জন্য)
-        let rankedAll = [...dataList].sort((a,b) => b.total - a.total);
+        let tableRanked = [...dataList].sort((a,b) => b.total - a.total);
+        let meritListRanked = dataList.filter(s => !s.isFail).sort((a,b) => b.total - a.total);
+
         dataList.forEach(s => {
-            let rank = rankedAll.findIndex(x => x.total === s.total) + 1;
-            rows[s.sIdx].querySelector('.r-pos').innerText = rank;
+            let rank = tableRanked.findIndex(x => x.total === s.total) + 1;
+            rows[s.sIdx].querySelector('.r-pos').innerHTML = `<span style="font-weight:800">${rank}</span>`;
         });
-
-        // মেরিট লিস্ট (শুধু পাস করাদের জন্য)
-        let meritList = dataList.filter(s => !s.isFail).sort((a,b) => b.total - a.total);
-        updateTopHolders(meritList);
+        updateTopHolders(meritListRanked);
     }
 
-    function updateTopHolders(list) {
+    function updateTopHolders(passedRanked) {
         const box = document.getElementById('topHoldersBox');
-        let filtered = list.slice(0, 10);
+        let filtered = passedRanked.filter(r => r.name && r.total > 0).slice(0, 10);
         if(!filtered.length) { box.style.display = 'none'; return; }
         box.style.display = 'block';
-        document.getElementById('topList').innerHTML = filtered.map((r, i) => `<div class="rank-item">🏆 ${i+1}st - ${r.name} (${r.total})</div>`).join('');
+        let htmlItems = filtered.map((r, i) => {
+            let badgeStyle = "background: #f1f8e9; color: #1b5e20;";
+            let medal = (i + 1) + "th";
+            if (i === 0) { badgeStyle = "background: linear-gradient(to bottom, #FFD700, #FFB900); color: #000;"; medal = "🥇 1st"; }
+            else if (i === 1) { badgeStyle = "background: linear-gradient(to bottom, #E0E0E0, #BDBDBD); color: #000;"; medal = "🥈 2nd"; }
+            else if (i === 2) { badgeStyle = "background: linear-gradient(to bottom, #CD7F32, #A0522D); color: #fff;"; medal = "🥉 3rd"; }
+            return `<div class="rank-item"><span class="rank-badge" style="${badgeStyle}">${medal}</span><span>${r.name} (${r.total})</span></div>`;
+        });
+        document.getElementById('topList').innerHTML = `<div class="merit-column">${htmlItems.slice(0,4).join('')}</div><div class="merit-column">${htmlItems.slice(4,7).join('')}</div><div class="merit-column">${htmlItems.slice(7,10).join('')}</div>`;
     }
 
-    function addSub() { let v = document.getElementById('subInp').value; if(v){ subjects.push(v); render(); } }
-    function addStu() { let v = document.getElementById('nameInp').value; if(v){ students.push(v); render(); } }
+    function toggleCols() {
+        const t = document.getElementById('chkTotal').checked;
+        const p = document.getElementById('chkPct').checked;
+        const r = document.getElementById('chkRes').checked;
+        const s = document.getElementById('chkPos').checked;
+        document.querySelectorAll('.cell-total').forEach(el => el.style.display = t ? '' : 'none');
+        document.querySelectorAll('.cell-pct').forEach(el => el.style.display = p ? '' : 'none');
+        document.querySelectorAll('.cell-res').forEach(el => el.style.display = r ? '' : 'none');
+        document.querySelectorAll('.cell-pos').forEach(el => el.style.display = s ? '' : 'none');
+    }
 
-    window.onload = switchClass;
+    function addSub() { if(isAdmin) { let v = document.getElementById('subInp').value; if(v){ subjects.push(v); document.getElementById('subInp').value=''; render(); } } }
+    function addStu() { if(isAdmin) { let v = document.getElementById('nameInp').value.trim(); if(v){ students.push(v); document.getElementById('nameInp').value=''; render(); } } }
+    function delSub(i) { if(isAdmin && confirm("Delete?")) { subjects.splice(i,1); render(); } }
+    function delStu(i) { if(isAdmin && confirm("Delete?")) { students.splice(i,1); render(); } }
+
+    window.onload = () => { renderExams(); updateInfo(); };
 </script>
 </body>
 </html>
