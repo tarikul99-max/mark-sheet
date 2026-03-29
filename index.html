@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glorious Education Care - Final Online Portal</title>
+    <title>Glorious Education Care - Secure Online Portal</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -58,17 +58,14 @@
             z-index: 2;
         }
 
-        /* 100 mark er box size choto kora hoyeche */
         .fm-input { 
-            width: 32px; /* Size choto kora holo */
+            width: 32px; 
             padding: 3px;
             border: 2px solid #000; 
             text-align: center; 
             font-weight: bold; 
             font-size: 10px; 
             margin: 2px auto; 
-            box-shadow: none !important;
-            outline: none !important;
             border-radius: 2px;
             display: block;
         }
@@ -80,8 +77,6 @@
             font-weight: bold; 
             text-align: center; 
             font-size: 11px; 
-            box-shadow: none !important;
-            outline: none !important;
         }
 
         input.stu-name-input { 
@@ -90,15 +85,9 @@
             background: transparent !important; 
             font-weight: bold; 
             outline: none; 
-            pointer-events: none; 
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis;
-            box-shadow: none !important;
-        }
-        .is-admin input.stu-name-input { 
-            pointer-events: auto; 
-            background: transparent !important; 
         }
 
         .status-badge { padding: 2px 4px; border-radius: 4px; font-size: 10px; font-weight: bold; }
@@ -118,7 +107,8 @@
             .header-logo { height: 60px; width: 60px; }
             .main-title-box h1 { font-size: 20px; }
             th, td { padding: 2px 1px !important; }
-            .fm-input { border: none !important; } /* Print e border chara clean dekhabe */
+            .fm-input { border: none !important; }
+            input:disabled { color: black; opacity: 1; -webkit-text-fill-color: black; }
         }
     </style>
 </head>
@@ -212,17 +202,20 @@
 
     function toggleAdmin() {
         if(!isAdmin) {
-            if(prompt("Admin Password:") === "#$t") {
+            let pass = prompt("Admin Password:");
+            if(pass === "#$t") {
                 isAdmin = true;
                 document.getElementById('mainBody').classList.add('is-admin');
                 document.getElementById('loginBtn').innerText = "Logout Admin";
+            } else if(pass !== null) {
+                alert("Wrong Password!");
             }
         } else {
             isAdmin = false;
             document.getElementById('mainBody').classList.remove('is-admin');
             document.getElementById('loginBtn').innerText = "Admin Login";
         }
-        render();
+        render(); // Re-render to enable/disable fields
     }
 
     function getPath(examName = null) {
@@ -246,6 +239,7 @@
     }
 
     function addExam() {
+        if(!isAdmin) return;
         let v = document.getElementById('examInp').value.trim();
         if(v && !examsList.includes(v)) {
             examsList.push(v);
@@ -306,10 +300,11 @@
         const head = document.getElementById('hRow');
         const body = document.getElementById('tBody');
         let hHtml = `<th style="width:35px">SL</th><th style="width:150px">Student Name</th>`;
+        
         subjects.forEach((s, i) => {
             hHtml += `<th>
-                <span contenteditable="${isAdmin}" style="display:block; min-height:1.2em;" onblur="subjects[${i}]=this.innerText">${s}</span>
-                <input type="number" class="fm-input" value="${fms[i]||100}" oninput="fms[${i}]=this.value;calc()" ${isAdmin?'':'disabled'}>
+                <span contenteditable="${isAdmin}" style="display:block; min-height:1.2em;" onblur="if(isAdmin) subjects[${i}]=this.innerText">${s}</span>
+                <input type="number" class="fm-input" value="${fms[i]||100}" oninput="if(isAdmin) { fms[${i}]=this.value; calc(); }" ${isAdmin?'':'disabled'}>
                 <span class="btn-del" onclick="delSub(${i})">×</span></th>`;
         });
         hHtml += `<th class="cell-total" style="width:45px">Total</th><th class="cell-pct" style="width:40px">%</th><th class="cell-res" style="width:45px">Res</th><th class="cell-pos" style="width:40px">Pos</th>`;
@@ -317,12 +312,15 @@
 
         let bHtml = '';
         students.forEach((name, sIdx) => {
+            // Disabled added if not admin
+            let isDisabled = isAdmin ? '' : 'disabled';
             bHtml += `<tr><td>${sIdx+1}</td><td>
-                <input type="text" class="stu-name-input" value="${name}" oninput="students[sIdx]=this.value">
+                <input type="text" class="stu-name-input" value="${name}" oninput="students[${sIdx}]=this.value" ${isDisabled}>
                 <span class="btn-del" onclick="delStu(${sIdx})">×</span></td>`;
+            
             subjects.forEach((_, subIdx) => {
                 let mKey = `${sIdx}_${subIdx}`;
-                bHtml += `<td><input type="number" class="mark-input" value="${marks[mKey]||0}" oninput="marks['${mKey}']=this.value;calc()"></td>`;
+                bHtml += `<td><input type="number" class="mark-input" value="${marks[mKey]||0}" oninput="marks['${mKey}']=this.value;calc()" ${isDisabled}></td>`;
             });
             bHtml += `<td class="r-total cell-total">0</td><td class="r-pct cell-pct">0%</td><td class="r-res cell-res">-</td><td class="r-pos cell-pos">-</td></tr>`;
         });
@@ -383,8 +381,8 @@
 
     function addSub() { if(isAdmin) { let v = document.getElementById('subInp').value; if(v){ subjects.push(v); document.getElementById('subInp').value=''; render(); } } }
     function addStu() { if(isAdmin) { let v = document.getElementById('nameInp').value.trim(); if(v){ students.push(v); document.getElementById('nameInp').value=''; render(); } } }
-    function delSub(i) { if(isAdmin && confirm("Delete?")) { subjects.splice(i,1); render(); } }
-    function delStu(i) { if(isAdmin && confirm("Delete?")) { students.splice(i,1); render(); } }
+    function delSub(i) { if(isAdmin && confirm("Delete Subject?")) { subjects.splice(i,1); render(); } }
+    function delStu(i) { if(isAdmin && confirm("Delete Student?")) { students.splice(i,1); render(); } }
 
     window.onload = () => { renderExams(); updateInfo(); };
 </script>
