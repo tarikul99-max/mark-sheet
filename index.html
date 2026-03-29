@@ -24,14 +24,15 @@
         .main-title-box span { font-size: 18px; margin-left: 8px; }
         .header-right-address { text-align: right; font-size: 11px; color: #000; font-weight: bold; line-height: 1.3; }
         .info-bar { background: #e8f5e9 !important; padding: 10px; border-bottom: 1px solid #c8e6c9; display: flex; justify-content: center; gap: 30px; font-weight: bold; font-size: 15px; color: #1b5e20; }
+        
         #topHoldersBox { display: none; margin: 15px; padding: 15px; border: 2px solid var(--primary); background: #fff; }
         .top-title { font-weight: bold; color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: 10px; font-size: 16px; }
         .top-list-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
         .merit-column { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 250px; }
-        .rank-item { display: flex; align-items: center; padding: 4px 0; border-bottom: 1px dashed #589f93; font-weight: bold; font-size: 13px; }
-        .rank-badge { display: inline-flex; align-items: center; justify-content: center; padding: 2px 10px; border-radius: 15px; font-weight: 900; font-size: 12px; min-width: 60px; margin-right: 10px; -webkit-print-color-adjust: exact; }
+        
         .controls-panel { background: #f5f5f5; padding: 15px; border-bottom: 1px solid #ddd; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
         .show-hide-box { background: #fff; border: 1px solid #ccc; padding: 5px 10px; display: flex; gap: 10px; font-size: 12px; font-weight: bold; color: var(--primary); }
+        
         input, select { padding: 6px; border: 1px solid #999; border-radius: 4px; font-weight: bold; outline: none; background: #fff; }
         button { padding: 7px 12px; cursor: pointer; border-radius: 4px; border: none; font-weight: bold; color: white; font-size: 12px; }
         .btn-add { background: var(--accent); }
@@ -39,29 +40,85 @@
         .btn-sync { background: #6a1b9a; }
         .btn-login { background: #333; }
         .btn-remove { background: #ff5722; margin-left: -5px; }
-        .table-wrap { padding: 10px; width: 100%; box-sizing: border-box; overflow-x: auto; max-height: 600px; overflow-y: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
-        th, td { border: 1px solid var(--table-border); padding: 6px 3px; text-align: center; overflow: hidden; }
-        th:nth-child(2), td:nth-child(2) { position: sticky; left: 0; background: #fff; z-index: 2; width: 180px; min-width: 180px; box-shadow: 2px 0 5px rgba(0,0,0,0.1); white-space: normal; word-wrap: break-word; text-align: left; padding: 4px 8px; }
-        th:nth-child(2) { background: #f0f0f0 !important; z-index: 3; }
-        th { background: #f0f0f0 !important; color: #1b5e20; vertical-align: middle; }
-        .fm-input { width: 38px; border: 1px solid #000; text-align: center; font-weight: bold; padding: 1px; font-size: 10px; margin-top: 3px; border-radius: 3px; }
-        input.mark-input { width: 100%; border: none !important; background: transparent !important; font-weight: bold; text-align: center; }
-        input.stu-name-input { width: 100%; border: none; background: transparent; font-weight: bold; text-align: left; outline: none; pointer-events: none; }
-        .is-admin input.stu-name-input { pointer-events: auto; background: #fffbe6; }
+
+        .table-wrap { padding: 10px; width: 100%; box-sizing: border-box; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; word-break: break-all; }
+        th, td { border: 1px solid var(--table-border); padding: 4px 2px; text-align: center; }
+        
+        th:nth-child(1) { width: 35px; }
+        th:nth-child(2), td:nth-child(2) { 
+            width: 150px !important; 
+            min-width: 150px !important; 
+            max-width: 150px !important;
+            text-align: left; 
+            padding-left: 8px;
+            background: #fff;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+        }
+
+        /* 100 mark er box size choto kora hoyeche */
+        .fm-input { 
+            width: 32px; /* Size choto kora holo */
+            padding: 3px;
+            border: 2px solid #000; 
+            text-align: center; 
+            font-weight: bold; 
+            font-size: 10px; 
+            margin: 2px auto; 
+            box-shadow: none !important;
+            outline: none !important;
+            border-radius: 2px;
+            display: block;
+        }
+        
+        input.mark-input { 
+            width: 100%; 
+            border: none !important; 
+            background: transparent; 
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 11px; 
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        input.stu-name-input { 
+            width: 100%; 
+            border: none; 
+            background: transparent !important; 
+            font-weight: bold; 
+            outline: none; 
+            pointer-events: none; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            box-shadow: none !important;
+        }
+        .is-admin input.stu-name-input { 
+            pointer-events: auto; 
+            background: transparent !important; 
+        }
+
         .status-badge { padding: 2px 4px; border-radius: 4px; font-size: 10px; font-weight: bold; }
         .pass { background: #c8e6c9; color: #1b5e20; }
         .fail { background: #ffcdd2; color: #b71c1c; }
-        .btn-del { color: red; cursor: pointer; font-weight: bold; margin-left: 3px; display: none; }
+        .btn-del { color: red; cursor: pointer; font-weight: bold; display: none; margin-left: 4px; font-size: 14px; }
         .is-admin .btn-del { display: inline; }
 
         @media print {
-            @page { size: A4 landscape; margin: 5mm; }
+            @page { size: A4 landscape; margin: 3mm; }
             body { background: white; padding: 0; }
-            .container { width: 100% !important; max-width: 100% !important; border: none !important; box-shadow: none !important; transform: scale(0.98); transform-origin: top center; }
+            .container { width: 100% !important; border: none !important; box-shadow: none !important; transform: scale(0.98); transform-origin: top center; }
             .controls-panel, .btn-del, .admin-only, .btn-login, .show-hide-box { display: none !important; }
-            th:nth-child(2), td:nth-child(2) { position: static !important; box-shadow: none !important; width: 180px !important; }
-            .table-wrap { overflow: visible !important; max-height: none !important; padding: 0 !important; }
+            th:nth-child(2), td:nth-child(2) { position: static !important; width: 130px !important; min-width: 130px !important; }
+            table { font-size: 9px; width: 100% !important; }
+            .table-wrap { overflow: visible !important; padding: 0 !important; }
+            .header-logo { height: 60px; width: 60px; }
+            .main-title-box h1 { font-size: 20px; }
+            th, td { padding: 2px 1px !important; }
+            .fm-input { border: none !important; } /* Print e border chara clean dekhabe */
         }
     </style>
 </head>
@@ -117,12 +174,12 @@
         <div class="admin-only">
             <input type="text" id="examInp" placeholder="New Exam" style="width:90px">
             <button class="btn-add" onclick="addExam()">+ Exam</button>
-            <input type="text" id="subInp" placeholder="Subject" style="width:50px">
+            <input type="text" id="subInp" placeholder="Sub" style="width:50px">
             <button class="btn-add" onclick="addSub()">+Sub</button>
             <input type="text" id="nameInp" maxlength="25" placeholder="Student Name" style="width:110px">
             <button class="btn-add" onclick="addStu()">+Student</button>
-            <button class="btn-sync" onclick="syncToAll()">🔄 Sync Students</button>
-            <button class="btn-sync" id="saveBtn" style="background:#6a1b9a" onclick="saveToCloud()">💾 Save Online</button>
+            <button class="btn-sync" onclick="syncToAll()">🔄 Sync</button>
+            <button class="btn-sync" id="saveBtn" style="background:#6a1b9a" onclick="saveToCloud()">💾 Save</button>
         </div>
         <button class="btn-print" onclick="window.print()">🖨️ Print Result</button>
     </div>
@@ -199,12 +256,9 @@
 
     function removeExam() {
         const currentExam = document.getElementById('eSel').value;
-        if(isAdmin && confirm(`Are you sure you want to remove "${currentExam}" from the list? (This won't delete the data inside it)`)) {
+        if(isAdmin && confirm(`Are you sure you want to remove "${currentExam}"?`)) {
             examsList = examsList.filter(e => e !== currentExam);
-            db.ref('exams_list').set(examsList).then(() => {
-                alert("Exam removed from list!");
-                updateInfo();
-            });
+            db.ref('exams_list').set(examsList).then(() => { updateInfo(); });
         }
     }
 
@@ -230,11 +284,11 @@
         if(!isAdmin) return;
         document.getElementById('saveBtn').innerText = "Saving...";
         db.ref(getPath()).set({ subjects, students, marks, fms })
-          .then(() => { alert("Online Saved!"); document.getElementById('saveBtn').innerText = "💾 Save Online"; });
+          .then(() => { alert("Online Saved!"); document.getElementById('saveBtn').innerText = "💾 Save"; });
     }
 
     function syncToAll() {
-        if(!isAdmin || !confirm("Sync current students/subjects to ALL exams of this class?")) return;
+        if(!isAdmin || !confirm("Sync students/subjects to ALL exams of this class?")) return;
         examsList.forEach(ex => {
             const path = getPath(ex);
             db.ref(path).once('value', (snap) => {
@@ -245,20 +299,20 @@
                 db.ref(path).set(data);
             });
         });
-        alert("Sync Completed Successfully!");
+        alert("Sync Completed!");
     }
 
     function render() {
         const head = document.getElementById('hRow');
         const body = document.getElementById('tBody');
-        let hHtml = `<th style="width:35px">SL</th><th style="width:180px">Student Name</th>`;
+        let hHtml = `<th style="width:35px">SL</th><th style="width:150px">Student Name</th>`;
         subjects.forEach((s, i) => {
-            hHtml += `<th style="width:60px">
-                <span contenteditable="${isAdmin}" style="display:block" onblur="subjects[${i}]=this.innerText">${s}</span>
+            hHtml += `<th>
+                <span contenteditable="${isAdmin}" style="display:block; min-height:1.2em;" onblur="subjects[${i}]=this.innerText">${s}</span>
                 <input type="number" class="fm-input" value="${fms[i]||100}" oninput="fms[${i}]=this.value;calc()" ${isAdmin?'':'disabled'}>
                 <span class="btn-del" onclick="delSub(${i})">×</span></th>`;
         });
-        hHtml += `<th class="cell-total">Total</th><th class="cell-pct">%</th><th class="cell-res">Res</th><th class="cell-pos">Pos</th>`;
+        hHtml += `<th class="cell-total" style="width:45px">Total</th><th class="cell-pct" style="width:40px">%</th><th class="cell-res" style="width:45px">Res</th><th class="cell-pos" style="width:40px">Pos</th>`;
         head.innerHTML = hHtml;
 
         let bHtml = '';
@@ -309,12 +363,9 @@
         if(!filtered.length) { box.style.display = 'none'; return; }
         box.style.display = 'block';
         let htmlItems = filtered.map((r, i) => {
-            let badgeStyle = "background: #f1f8e9; color: #1b5e20;";
             let medal = (i + 1) + "th";
-            if (i === 0) { badgeStyle = "background: linear-gradient(to bottom, #FFD700, #FFB900); color: #000;"; medal = "🥇 1st"; }
-            else if (i === 1) { badgeStyle = "background: linear-gradient(to bottom, #E0E0E0, #BDBDBD); color: #000;"; medal = "🥈 2nd"; }
-            else if (i === 2) { badgeStyle = "background: linear-gradient(to bottom, #CD7F32, #A0522D); color: #fff;"; medal = "🥉 3rd"; }
-            return `<div class="rank-item"><span class="rank-badge" style="${badgeStyle}">${medal}</span><span>${r.name} (${r.total})</span></div>`;
+            if (i === 0) medal = "🥇 1st"; else if (i === 1) medal = "🥈 2nd"; else if (i === 2) medal = "🥉 3rd";
+            return `<div class="rank-item"><span>${medal}</span> <span>${r.name} (${r.total})</span></div>`;
         });
         document.getElementById('topList').innerHTML = `<div class="merit-column">${htmlItems.slice(0,4).join('')}</div><div class="merit-column">${htmlItems.slice(4,7).join('')}</div><div class="merit-column">${htmlItems.slice(7,10).join('')}</div>`;
     }
